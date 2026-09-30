@@ -28,7 +28,8 @@ var wantSMTPRules = []smtp.RuleConfig{{
 		Users:         []string{"token"},
 		SenderDomains: []string{"example.com"},
 	},
-	RestrictCustomHTML: true,
+	RestrictCustomHTML:               true,
+	SuppressReservedRecipientDomains: true,
 	Headers: []smtp.RuleHeader{{
 		Name:  "X-Instance-ID",
 		Value: "{{.InstanceID}}",
@@ -303,6 +304,7 @@ Notifications:
         SenderDomains:
           - example.com
       RestrictCustomHTML: true
+      SuppressReservedRecipientDomains: true
       Headers:
         - Name: X-Instance-ID
           Value: "{{.InstanceID}}"
@@ -317,7 +319,7 @@ Log:
 		args: args{yaml: `
 Notifications:
   SMTPRules: >
-    [{"Match": {"Hosts": ["smtp.example.com"], "Users": ["token"], "SenderDomains": ["example.com"]}, "RestrictCustomHTML": true, "Headers": [{"Name": "X-Instance-ID", "Value": "{{.InstanceID}}"}]}]
+    [{"Match": {"Hosts": ["smtp.example.com"], "Users": ["token"], "SenderDomains": ["example.com"]}, "RestrictCustomHTML": true, "SuppressReservedRecipientDomains": true, "Headers": [{"Name": "X-Instance-ID", "Value": "{{.InstanceID}}"}]}]
 Log:
   Level: info
 `},
